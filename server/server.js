@@ -32,7 +32,7 @@ app.get('/socks/:color', async (req, res) => {
         const jsonObj = JSON.parse(data);
         const socks = jsonObj.filter((sock) => sock.color.toLowerCase() === color.toLowerCase())
         if (socks.length === 0) {
-            res.send("No socks found with that color.");
+            res.status(404).send("No socks found with that color.");
         }
         res.json(socks);
     } catch (err) {
