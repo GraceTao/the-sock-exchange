@@ -84,6 +84,9 @@ function App() {
             Both socks and space rockets 🚀 will take you to new heights, but
             only one will get cold feet!
             <Featured promo_data={promo_data} />
+            <div>
+              <hr/>
+            </div>
             <div
               className="card-container"
               style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}

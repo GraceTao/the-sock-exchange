@@ -6,7 +6,7 @@ const Featured = ({ promo_data }) => {
       <h5>Featured</h5>
       <div
         className="card-container d-flex flex-row justify-content-start"
-        style={{ gap: "20px", padding: "20px" }}
+        style={{ gap: "20px", padding: "10px" }}
       >
         {promo_data.map((feature) => (
           <Feature key={feature.id} feature={feature.feature} />
