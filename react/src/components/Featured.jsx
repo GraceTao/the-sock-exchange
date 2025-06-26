@@ -1,5 +1,6 @@
-const Featured = ({ promo_data }) => {
+import Feature from "./Feature";
 
+const Featured = ({ promo_data }) => {
   return (
     <div>
       <h5>Featured</h5>
@@ -8,14 +9,7 @@ const Featured = ({ promo_data }) => {
         style={{ gap: "20px", padding: "20px" }}
       >
         {promo_data.map((feature) => (
-          <div className="card">
-            <div className="card bg-light">
-              <div className="card-text">{feature.feature}</div>
-              <div className="card=text">
-                <a href="#">Click to buy!</a>
-              </div>
-            </div>
-          </div>
+          <Feature key={feature.id} feature={feature.feature} />
         ))}
       </div>
     </div>
