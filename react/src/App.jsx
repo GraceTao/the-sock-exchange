@@ -1,8 +1,10 @@
-import sock_data from "./assets/sock.json";
 import Sock from "./components/Sock";
 import Footer from "./components/Footer";
 import Search from "./components/Search";
 import Featured from "./components/Featured";
+
+import sock_data from "./assets/sock.json";
+import promo_data from "./assets/promo.json";
 
 function App() {
   return (
@@ -81,7 +83,7 @@ function App() {
           <div className="row">
             Both socks and space rockets 🚀 will take you to new heights, but
             only one will get cold feet!
-            <Featured />
+            <Featured promo_data={promo_data} />
             <div
               className="card-container"
               style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
