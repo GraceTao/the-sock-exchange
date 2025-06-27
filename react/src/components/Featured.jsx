@@ -1,4 +1,4 @@
-import Feature from "./Feature";
+import Promotion from "./Promotion";
 
 const Featured = ({ promo_data }) => {
   return (
@@ -9,7 +9,7 @@ const Featured = ({ promo_data }) => {
         style={{ gap: "20px", padding: "10px" }}
       >
         {promo_data.map((feature) => (
-          <Feature key={feature.id} feature={feature.feature} />
+          <Promotion key={feature.id} feature={feature.feature} />
         ))}
       </div>
     </div>

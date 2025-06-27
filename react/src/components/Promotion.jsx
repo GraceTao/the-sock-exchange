@@ -1,4 +1,4 @@
-const Feature = ({ feature }) => {
+const Promotion = ({ feature }) => {
   return (
     <div className="card">
       <div className="card bg-light">
@@ -11,4 +11,4 @@ const Feature = ({ feature }) => {
   );
 };
 
-export default Feature;
+export default  Promotion;

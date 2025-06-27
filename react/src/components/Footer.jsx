@@ -1,7 +1,9 @@
-export default function Footer(props) {
+export default function Footer() {
+    const bgStyle = import.meta.env.VITE_ENVIRONMENT === "development" ? "bg-yellow" : "bg-green";
+
     return (
-        <footer className="text-muted">
-            <div><strong>{props.environment}</strong></div>
+        <footer className={`${bgStyle} text-center text-bold text-muted rounded`}>
+            <div><strong>{import.meta.env.VITE_ENVIRONMENT.toUpperCase()}</strong></div>
         </footer>
     )
 }
