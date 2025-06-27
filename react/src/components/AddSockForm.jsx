@@ -47,7 +47,7 @@ const AddSockForm = ({ setSockData }) => {
       userId: "" + userId,
       sockDetails: sockDetails,
       additionalFeatures: sockFeatures,
-      addedTimestamp: `${new Date(Date.now()).toISOString()}`,
+      addedTimestamp: `${new Date().toISOString()}`,
     };
 
     try {
