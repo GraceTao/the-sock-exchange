@@ -12,47 +12,57 @@ import promo_data from "./assets/promo.json";
 
 import "./index.css";
 
+const pageLimit = 3;
+
 function App() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  
+  const [sockCount, setSockCount] = useState(null);
+
   // const [numSocks, setNumSocks] = useState({});
   const fetchData = async () => {
     try {
-      // const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/10`);
-      const response = await fetch(import.meta.env.VITE_SOCKS_API_URL);
+      const response = await fetch(
+        `${import.meta.env.VITE_SOCKS_API_URL}/${page}/${pageLimit}`
+      );
+
       if (!response.ok) {
         throw new Error("Data could not be fetched!");
       }
       const json_response = await response.json();
+
       setData(json_response);
-      console.log(json_response.length);
-  
-      // set number Left, Right, Both socks
-      // const left = json_response.filter(
-      //   (sock) => sock.sockDetails.forFoot === "Left"
-      // );
-      // const right = json_response.filter(
-      //   (sock) => sock.sockDetails.forFoot === "Right"
-      // );
-      // const both = json_response.filter(
-      //   (sock) => sock.sockDetails.forFoot === "Both"
-      // );
-      // setNumSocks({
-      //   Left: left.length,
-      //   Right: right.length,
-      //   Both: both.length,
-      // });
+      console.log("Number of socks fetched: ", json_response.length);
+    } catch (error) {
+      console.error("Error fetching socks:", error);
+    }
+  };
+
+  const getSockCount = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SOCKS_API_URL}/count`
+      );
+
+      if (!response.ok) {
+        throw new Error("Data could not be fetched!");
+      }
+      const json_response = await response.json();
+
+      setSockCount(json_response.count);
     } catch (error) {
       console.error("Error fetching socks:", error);
     }
   };
 
   useEffect(() => {
-
     fetchData();
+    getSockCount();
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [page, sockCount]);
 
   const handleDelete = async (sockId) => {
     try {
@@ -65,12 +75,7 @@ function App() {
       }
       const updatedData = data.filter((sock) => sock._id !== sockId);
       setData(updatedData);
-      const sock = data.filter((s) => s._id === sockId)[0];
-
-      // setNumSocks((old) => {
-      //   const sockFoot = sock.sockDetails.forFoot;
-      //   return { ...old, [sockFoot]: old[sockFoot] - 1 };
-      // });
+      setSockCount((prev) => prev - 1);
     } catch (error) {
       console.error("Error deleting sock: ", error);
     }
@@ -86,15 +91,34 @@ function App() {
               Both socks and space rockets 🚀 will take you to new heights, but
               only one will get cold feet!
               <Featured promo_data={promo_data} />
-              
               <hr />
               <Routes>
                 <Route
                   path="/"
-                  element={<Home data={data} handleDelete={handleDelete} />}
+                  element={
+                    <Home
+                      sockCount={sockCount}
+                      sockData={data}
+                      handleDelete={handleDelete}
+                      page={page}
+                      setPage={setPage}
+                      pageLimit={pageLimit}
+                    />
+                  }
                 />
                 <Route path="/about" element={<About />} />
-                <Route path="/addSock" element={<AddSockForm setSockData={setData} />} />
+                <Route
+                  path="/addSock"
+                  element={
+                    <AddSockForm
+                      sockCount={sockCount}
+                      setSockData={setData}
+                      page={page}
+                      setPage={setPage}
+                      pageLimit={pageLimit}
+                    />
+                  }
+                />
               </Routes>
               <Footer />
             </div>

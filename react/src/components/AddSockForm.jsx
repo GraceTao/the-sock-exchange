@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddSockForm = ({ setSockData }) => {
+const AddSockForm = ({ setSockCount, setSockData, page, setPage, pageLimit }) => {
   // state vars
   const [userId, setUserId] = useState(null);
 
@@ -55,6 +55,9 @@ const AddSockForm = ({ setSockData }) => {
       if (userId) {
         console.log(JSON.stringify(formJson));
 
+        // reset to page 1
+        setPage(1);
+
         const response = await fetch(import.meta.env.VITE_SOCKS_API_URL, {
           method: "POST",
           headers: {
@@ -68,6 +71,7 @@ const AddSockForm = ({ setSockData }) => {
         }
 
         alert("Successfully added new sock!");
+        setSockCount((prev) => prev+1);
       } else {
         alert("Error: userId not specified");
       }
@@ -75,7 +79,7 @@ const AddSockForm = ({ setSockData }) => {
       // refetch entire sock database
       try {
         console.log("Refetching entire db");
-        const response = await fetch(import.meta.env.VITE_SOCKS_API_URL);
+        const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/${pageLimit}`);
         if (!response.ok) {
           throw new Error("Data could not be fetched!");
         }

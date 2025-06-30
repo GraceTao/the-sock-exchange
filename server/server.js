@@ -16,6 +16,20 @@ const PORT = 3000;
 // middleware
 app.use(express.json());
 
+// get number of socks in db
+app.get("/socks/count", async (req, res) => {
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    const sockCount = await collection.countDocuments();
+    res.send({'count': sockCount});
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).send("Hmmm, something smells... No socks for you! ☹");
+  }
+});
+
 // Endpoint to read and send JSON file content
 app.get("/socks", async (req, res) => {
   try {
@@ -53,33 +67,37 @@ app.post("/socks/search", async (req, res) => {
 });
 
 // delete sock based on id
-app.delete('/socks/:id', async (req, res) => {
-    try {
-        const sockId = req.params.id;
-        const client = await MongoClient.connect(url);
-        const db = client.db(dbName);
-        const collection = db.collection(collectionName);
-        const deleteRes = await collection.deleteOne({"_id": new ObjectId(sockId)});
-        res.json(deleteRes);
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
-    }
+app.delete("/socks/:id", async (req, res) => {
+  try {
+    const sockId = req.params.id;
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    const deleteRes = await collection.deleteOne({ _id: new ObjectId(sockId) });
+    res.json(deleteRes);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error deleting sock");
+  }
 });
 
 // add sock to db
-app.post('/socks', async (req, res) => {
-    try {
-        const sockToAdd = req.body;
-        const client = await MongoClient.connect(url);
-        const collection = client.db(dbName).collection(collectionName);
-        const addRes = await collection.insertOne(sockToAdd);
-        res.json(addRes);
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).send('Hmm, something doesn\'t smell right... Error adding sock');
-    }
-})
+app.post("/socks", async (req, res) => {
+  try {
+    const sockToAdd = req.body;
+    const client = await MongoClient.connect(url);
+    const collection = client.db(dbName).collection(collectionName);
+    const addRes = await collection.insertOne(sockToAdd);
+    res.json(addRes);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Hmm, something doesn't smell right... Error adding sock");
+  }
+});
 
 // get socks of certain color
 app.get("/socks/:color", async (req, res) => {
