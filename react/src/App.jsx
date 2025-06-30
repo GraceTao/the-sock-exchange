@@ -1,25 +1,25 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import About from "./components/About";
 import AddSockForm from "./components/AddSockForm";
-import Search from "./components/Search";
 import Featured from "./components/Featured";
 import Footer from "./components/Footer";
 
-import sock_data from "./assets/sock.json";
 import promo_data from "./assets/promo.json";
 
 import "./index.css";
 
 function App() {
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  
   // const [numSocks, setNumSocks] = useState({});
   const fetchData = async () => {
     try {
-      console.log("Refetching entire db")
+      // const response = await fetch(`${import.meta.env.VITE_SOCKS_API_URL}/${page}/10`);
       const response = await fetch(import.meta.env.VITE_SOCKS_API_URL);
       if (!response.ok) {
         throw new Error("Data could not be fetched!");
