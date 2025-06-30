@@ -105,137 +105,142 @@ const AddSockForm = ({ setSockData }) => {
     }
   };
   return (
-    <form className="p-3" onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label htmlFor="userId">User ID</label>
-        <input
-          type="text"
-          className="form-control"
-          id="userId"
-          name="userId"
-          value={userId || ""}
-          onChange={(e) => handleUserIdChange(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="size">Size</label>
-        <select
-          className="form-control"
-          id="size"
-          name="size"
-          value={sockDetails.size}
-          onChange={handleSockDetailsChange}
-        >
-          <option>Small</option>
-          <option>Medium</option>
-          <option>Large</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="color">Color</label>
-        <input
-          type="text"
-          className="form-control"
-          id="color"
-          name="color"
-          value={sockDetails.color}
-          onChange={handleSockDetailsChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="pattern">Pattern</label>
-        <input
-          type="text"
-          className="form-control"
-          id="pattern"
-          name="pattern"
-          value={sockDetails.pattern}
-          onChange={handleSockDetailsChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="material">Material</label>
-        <input
-          type="text"
-          className="form-control"
-          id="material"
-          name="material"
-          value={sockDetails.material}
-          onChange={handleSockDetailsChange}
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="condition">Condition</label>
-        <select
-          className="form-control"
-          id="condition"
-          name="condition"
-          value={sockDetails.condition}
-          onChange={handleSockDetailsChange}
-        >
-          <option>Used</option>
-          <option>New</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="forFoot">For Foot</label>
-        <select
-          className="form-control"
-          id="forFoot"
-          name="forFoot"
-          value={sockDetails.forFoot}
-          onChange={handleSockDetailsChange}
-        >
-          <option>Left</option>
-          <option>Right</option>
-          <option>Both</option>
-        </select>
-      </div>
-      <div className="row">
-        <div className="form-check col">
+    <>
+      <center>
+        <h5>Add a Sock!</h5>
+      </center>
+      <form className="p-3" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="userId">User ID</label>
           <input
-            className="form-check-input"
-            type="checkbox"
-            id="waterResistant"
-            name="waterResistant"
-            checked={sockFeatures.waterResistant}
-            onChange={handleFeatureChange}
+            type="text"
+            className="form-control"
+            id="userId"
+            name="userId"
+            value={userId || ""}
+            onChange={(e) => handleUserIdChange(e.target.value)}
           />
-          <label className="form-check-label" htmlFor="waterResistant">
-            Water Resistant
-          </label>
         </div>
-        <div className="form-check col">
+        <div className="form-group">
+          <label htmlFor="size">Size</label>
+          <select
+            className="form-control"
+            id="size"
+            name="size"
+            value={sockDetails.size}
+            onChange={handleSockDetailsChange}
+          >
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="color">Color</label>
           <input
-            className="form-check-input"
-            type="checkbox"
-            id="padded"
-            name="padded"
-            checked={sockFeatures.padded}
-            onChange={handleFeatureChange}
+            type="text"
+            className="form-control"
+            id="color"
+            name="color"
+            value={sockDetails.color}
+            onChange={handleSockDetailsChange}
           />
-          <label className="form-check-label" htmlFor="padded">
-            Padded
-          </label>
         </div>
-        <div className="form-check col">
+        <div className="form-group">
+          <label htmlFor="pattern">Pattern</label>
           <input
-            className="form-check-input"
-            type="checkbox"
-            id="antiBacterial"
-            name="antiBacterial"
-            checked={sockFeatures.antiBacterial}
-            onChange={handleFeatureChange}
+            type="text"
+            className="form-control"
+            id="pattern"
+            name="pattern"
+            value={sockDetails.pattern}
+            onChange={handleSockDetailsChange}
           />
-          <label className="form-check-label" htmlFor="antiBacterial">
-            Anti Bacterial
-          </label>
         </div>
-      </div>
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
-    </form>
+        <div className="form-group">
+          <label htmlFor="material">Material</label>
+          <input
+            type="text"
+            className="form-control"
+            id="material"
+            name="material"
+            value={sockDetails.material}
+            onChange={handleSockDetailsChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="condition">Condition</label>
+          <select
+            className="form-control"
+            id="condition"
+            name="condition"
+            value={sockDetails.condition}
+            onChange={handleSockDetailsChange}
+          >
+            <option>Used</option>
+            <option>New</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="forFoot">For Foot</label>
+          <select
+            className="form-control"
+            id="forFoot"
+            name="forFoot"
+            value={sockDetails.forFoot}
+            onChange={handleSockDetailsChange}
+          >
+            <option>Left</option>
+            <option>Right</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div className="row">
+          <div className="form-check col">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="waterResistant"
+              name="waterResistant"
+              checked={sockFeatures.waterResistant}
+              onChange={handleFeatureChange}
+            />
+            <label className="form-check-label" htmlFor="waterResistant">
+              Water Resistant
+            </label>
+          </div>
+          <div className="form-check col">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="padded"
+              name="padded"
+              checked={sockFeatures.padded}
+              onChange={handleFeatureChange}
+            />
+            <label className="form-check-label" htmlFor="padded">
+              Padded
+            </label>
+          </div>
+          <div className="form-check col">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="antiBacterial"
+              name="antiBacterial"
+              checked={sockFeatures.antiBacterial}
+              onChange={handleFeatureChange}
+            />
+            <label className="form-check-label" htmlFor="antiBacterial">
+              Anti Bacterial
+            </label>
+          </div>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </>
   );
 };
 

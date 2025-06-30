@@ -4,6 +4,9 @@ import { promises as fs } from 'fs';
 const app = express();
 const PORT = 3000;
 
+// middleware
+app.use(express.json());
+
 // Endpoint to read and send JSON file content
 app.get('/socks', async (req, res) => {
     try {
@@ -40,8 +43,6 @@ app.get('/socks/:color', async (req, res) => {
         res.status(500).send("Hmmm, something smells... No socks for you! ☹");
     }
 });
-
-app.use(express.json());
 
 app.post('/socks', async (req, res) => {
     try {
@@ -89,6 +90,22 @@ app.put('/user/:id', async (req, res) => {
         res.status(500).send('Hmm, something doesn\'t smell right... Error deleting sock');
     }
 })
+
+// pagination
+app.get('/socks/:page/:limit', async (req, res) => {
+    try {
+        let { page, limit } = req.params;
+        limit = +limit; // The + converts limit from a string to integer.
+        const client = await MongoClient.connect(url);
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        const socks = await collection.find({}).skip((page - 1) * limit).limit(limit).toArray();
+        res.json(socks);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).send('Hmm, something doesn\'t smell right... Error fetching socks');
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
